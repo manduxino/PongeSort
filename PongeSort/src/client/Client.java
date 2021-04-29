@@ -6,9 +6,14 @@
 package client;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.io.Reader;
+import java.io.Serializable;
 import java.net.Socket;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -35,6 +40,11 @@ public class Client {
         for (int i = 0; i < 10; i++) {
             System.out.println(a[i]);
         }
+
+      
+   
+        
+        
         
         try {
             
@@ -44,7 +54,9 @@ public class Client {
             
             BufferedReader in = new BufferedReader(new InputStreamReader(server.getInputStream()));
  
-           out.println(a[0]);
+           ObjectOutputStream oos= new ObjectOutputStream(server.getOutputStream());
+                oos.writeObject(a);
+  
             
             
         } catch (IOException ex) {
@@ -53,8 +65,7 @@ public class Client {
         
         
         
-    }
     
    
-    
+    }
 }

@@ -8,6 +8,7 @@ package server;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Level;
@@ -33,8 +34,14 @@ public class Serverr implements Runnable {
 
             System.out.println("partito");
   
-            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            System.out.println(in.readLine());
+             ObjectInputStream ois = new ObjectInputStream(clientSocket.getInputStream());
+            try {
+                char[]caratteri= (char[])ois.readObject();
+                
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Serverr.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
             
             
         } catch (IOException ex) {
